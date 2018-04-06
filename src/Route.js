@@ -18,7 +18,7 @@ import {
     AsyncStorage
 } from 'react-native';
 
-import SplashPage from "./Components/Pages/SplashPage";
+import SplashPage from "./Components/Pages/SplashPage" ;
 import HomePage from "./Components/Pages/HomePage";
 import Address from "./Components/Pages/Address";
 import Payment from "./Components/Pages/Payment";
