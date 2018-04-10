@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TextInput, TouchableOpacity, ScrollView, Image, StyleSheet, Text, Dimensions, ActivityIndicator } from 'react-native';
+import { View, TouchableOpacity, ScrollView, Image, StyleSheet, Text, Dimensions, ActivityIndicator } from 'react-native';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Actions } from "react-native-router-flux";
 console.ignoredYellowBox = ['Warning:'];
@@ -22,10 +22,8 @@ class ThankYou extends React.Component {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-
     render() {
         if (this.props.data) {
-            console.log("this.props.data", this.props.data)
             return (
                 <KeyboardAwareScrollView innerRef={ref => (this.scroll = ref)}>
                     <View style={styles.container}>
