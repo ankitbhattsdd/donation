@@ -36,7 +36,7 @@ class Address extends React.Component {
             streetAddress1: '',
             streetAddress1_Clicked: false,
             streetAddress1_Empty: false,
-
+            isLoading: false,
             streetAddress2: '',
             streetAddress2_Clicked: false,
             streetAddress2_Empty: false,
@@ -97,7 +97,7 @@ class Address extends React.Component {
     }
 
     addPayment = (data) => {
-
+        this.setState({ isLoading : true})
         AsyncStorage.setItem('streetAddress1', this.state.streetAddress1);
         AsyncStorage.setItem('streetAddress2', this.state.streetAddress2);
         AsyncStorage.setItem('city', this.state.city);
@@ -142,13 +142,17 @@ class Address extends React.Component {
                 },
                 body: JSON.stringify(dataTosend),
             })
-                .then((response) => {
-                    response.json(), console.log('response-',
-                        JSON.stringify(response))
-                    if (response.status === 200)
-                        Actions.ThankYou({ data })
-                    else
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    console.log("resopi", responseJson)
+                    if (responseJson.status === 200) {
+                        Actions.ThankYou()
+                        this.setState({isLoading: false})
+                    }
+                    else {
                         Actions.Error()
+                        this.setState({ isLoading: false })                        
+                    }
                 })
         })
             .catch(function (err) {
@@ -185,7 +189,11 @@ class Address extends React.Component {
             email: this.props.Email,
             ccEmail: this.props.CCemail
         }
-
+        if(this.state.isLoading){
+            return <View style={{flex: 1, justifyContent: 'center'}}>
+            <ActivityIndicator/>
+            </View>
+        }
         return (
             <KeyboardAwareScrollView enableOnAndroid={false} keyboardShouldPersistTaps={Platform.OS === 'ios' ? false : true}>
                 <View style={styles.container}>
